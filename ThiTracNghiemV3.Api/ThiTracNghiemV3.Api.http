@@ -1,0 +1,6 @@
+@ThiTracNghiemV3.Api_HostAddress = http://localhost:5114
+
+GET {{ThiTracNghiemV3.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

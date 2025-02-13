@@ -1,0 +1,42 @@
+ThiTracNghiemV3
+
+Làm Tài Liệu Hướng Dẫn Làm Project Thi Trắc Nghiệm Sử Dụng ASP.NET Core Kết Hợp Blazor
+(Tạo guideline hướng dẫn)
+Tạo project ThiTracNghiemV2.Web bằng project template là “Blazor WebAssembly Standalone App”
+Tạo project ThiTracNghiemV2.Shared (class library )
+Tạo project ThiTracNghiemV2.Shared.Components (razor class library)
+Tạo project ThiTracNghiemV2.Mobile (MAUI Blazor Hybrid -> HTML CSS)
+MAUI Blazor -> code giao diện bằng XAML
+
+Dùng project template ASP.NET Core Web API để tạo project ThiTracNghiemV2.Api
+ID -> Id
+API -> Api
+Dùng project template Class Library  để tạo project ThiTracNghiemV2.Shared
+
+Tạo Component bằng project template là Razor Class Library
+
+.Net Framework -> Class Library (.Net Framework -> chỉ dùng trong Windows)
+.Net Core -> Class Library (đa nền tảng)
+Blazor -> Razor Class Library
+
+.NET MAUI Blazor Hybrid App -> làm ứng dụng (máy tính/điện thoại)
+
+Reference “Component” với “Shared”
+Reference “Web” với “Shared” và “Component”
+Reference “Api” với “Shared”
+
+Cài nuget package:
+tool
+sqlserver
+.net core
+
+...
+
+Model
+Entity
+Thực thể
+
+bài viết của anh Hoàng về thư viện excel
+https://toidicodedao.com/2015/11/24/series-c-hay-ho-epplus-thu-vien-excel-ba-dao-phan-1/
+
+
