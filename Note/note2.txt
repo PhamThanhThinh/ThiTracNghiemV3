@@ -10,3 +10,5 @@ c
 d
 
 mã hóa sha 256
+
+add
