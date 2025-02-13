@@ -1,0 +1,12 @@
+A, B, C, D
+
+a
+b
+c
+d
+a
+b
+c
+d
+
+mã hóa sha 256
