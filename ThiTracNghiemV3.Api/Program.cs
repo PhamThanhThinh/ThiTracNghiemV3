@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using ThiTracNghiemV3.Api.Data;
 using ThiTracNghiemV3.Api.Data.Entities;
+using ThiTracNghiemV3.Api.Endpoints;
+using ThiTracNghiemV3.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,8 +24,10 @@ builder.Services.AddDbContext<UngDungDbContext>(options =>
   var chuoiKetNoi = builder.Configuration.GetConnectionString("ChuoiKetNoi");
   options.UseSqlServer(chuoiKetNoi);
 }
-
 );
+
+// khai báo service chức năng xác thực
+builder.Services.AddTransient<AuthenService>();
 
 var app = builder.Build();
 
@@ -35,6 +39,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.MappingAuthenEndpoints();
 
 app.UseAuthorization();
 

@@ -13,11 +13,13 @@ namespace ThiTracNghiemV3.Api.Services
   {
     private readonly UngDungDbContext _dbContext;
     private readonly IPasswordHasher<User> _passwordHasher;
+    private readonly IConfiguration _configuration;
 
-    public AuthenService(UngDungDbContext dbContext, IPasswordHasher<User> passwordHasher)
+    public AuthenService(UngDungDbContext dbContext, IPasswordHasher<User> passwordHasher, IConfiguration configuration)
     {
       _dbContext = dbContext;
       _passwordHasher = passwordHasher;
+      _configuration = configuration;
     }
 
     //private readonly UngDungDbContext dbContext;
@@ -26,7 +28,7 @@ namespace ThiTracNghiemV3.Api.Services
     //  this.dbContext = dbContext;
     //}
 
-    public async Task LoginAsync(LoginDto loginDto)
+    public async Task<AuthenResponseDto> LoginAsync(LoginDto loginDto)
     {
       var user = await _dbContext.Users
         .AsNoTracking()
@@ -36,7 +38,7 @@ namespace ThiTracNghiemV3.Api.Services
       {
         // không tìm thấy user và FirstOrDefaultAsync trả về null
         // người dùng chưa đăng ký
-        return;
+        return new AuthenResponseDto(default, "Không có User này trong hệ thống");
       }
 
       var ketQuaXacThuc = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, loginDto.Password);
@@ -44,16 +46,17 @@ namespace ThiTracNghiemV3.Api.Services
       if (ketQuaXacThuc == PasswordVerificationResult.Failed)
       {
         // mật khẩu sai
-        return;
+        return new AuthenResponseDto(default, "Mật khẩu sai");
       }
 
       // tạo khóa JWT Token
-      var jwt = GeneratePassword(user);
+      var jwt = GenerateJwtToken(user);
 
+      return new AuthenResponseDto(jwt);
     }
 
     // function tạo khóa JWT Token
-    private static string GeneratePassword(User user)
+    private string GenerateJwtToken(User user)
     {
       Claim[] claims = [
           new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
@@ -61,19 +64,23 @@ namespace ThiTracNghiemV3.Api.Services
           new Claim(ClaimTypes.Name, user.Role),
         ];
 
-      var khoaBiMat = ""; // lấy từ appsettings
+      //var khoaBiMat = "KhoaBiMat"; // lấy từ appsettings
+      //var khoaBiMat = _configuration.GetValue<string>("Jwt");
+      var khoaBiMat = _configuration.GetValue<string>("Jwt:KhoaBiMat");
       var khoa = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(khoaBiMat));
       var thongTinDangNhap = new SigningCredentials(khoa, SecurityAlgorithms.HmacSha256);
 
-      var token = new JwtSecurityToken(
-        issuer: "", 
-        audience: "", 
+      var jwtSecurityToken = new JwtSecurityToken(
+        issuer: _configuration.GetValue<string>("Jwt:Issuer"), // lấy từ appsettings
+        audience: _configuration.GetValue<string>("Jwt:Audience"), // lấy từ appsettings
         claims: claims, 
         signingCredentials: thongTinDangNhap,
-        expires: DateTime.UtcNow.AddMinutes(500)
+        expires: DateTime.UtcNow.AddMinutes(_configuration.GetValue<int>("Jwt:ExpiresMinutes"))
         );
 
-      return null;
+      var token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
+
+      return token;
     }
 
   }

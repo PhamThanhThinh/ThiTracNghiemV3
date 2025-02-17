@@ -1,0 +1,7 @@
+llama
+deepseek
+thường localhost bắt đầu với 7000 -> 7999
+Đang làm chức năng xác thực
+ctrl K F dùng để format code
+
+Remove-Migration
