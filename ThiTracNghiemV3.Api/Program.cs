@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ThiTracNghiemV3.Api.Data;
 using ThiTracNghiemV3.Api.Data.Entities;
 using ThiTracNghiemV3.Api.Endpoints;
 using ThiTracNghiemV3.Api.Services;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,7 +29,28 @@ builder.Services.AddDbContext<UngDungDbContext>(options =>
 }
 );
 
-// khai báo service chức năng xác thực
+builder.Services.AddAuthentication(options =>
+{
+  options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+  options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}
+).AddJwtBearer(options =>
+{
+  var khoaBiMat = builder.Configuration.GetValue<string>("Jwt:KhoaBiMat");
+  var khoa = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(khoaBiMat));
+  options.TokenValidationParameters = new TokenValidationParameters
+  {
+    IssuerSigningKey = khoa,
+    ValidIssuer = builder.Configuration.GetValue<string>("Jwt:Issuer"),
+    ValidAudience = builder.Configuration.GetValue<string>("Jwt:Audience"),
+    ValidateIssuer = true,
+    ValidateAudience = true,
+    ValidateLifetime = true,
+    ValidateIssuerSigningKey = true,
+  };
+});
+
+// khai báo service cho chức năng xác thực
 builder.Services.AddTransient<AuthenService>();
 
 var app = builder.Build();
@@ -39,6 +63,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.MappingAuthenEndpoints();
 
