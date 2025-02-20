@@ -1,0 +1,18 @@
+MAUI Blazor Hybrid -> làm ứng dụng máy tính, ứng dụng điện thoại
+
+------------------------
+Authen bao gồm:
+Login
+Register
+
+asp.net webform
+asp.net mvc (.net framework)
+asp.net core mvc (.net core 6 8 9 được dùng phổ biến trong các dự án asp.net core mvc)
+blazor (.net core 8 và 9, chỉ có core 8 và 9 thì mới có blazor)
+
+học làm giao diện web
+form:
+label
+textbox
+button
+

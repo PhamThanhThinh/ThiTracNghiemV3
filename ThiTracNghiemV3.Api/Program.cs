@@ -29,6 +29,25 @@ builder.Services.AddDbContext<UngDungDbContext>(options =>
 }
 );
 
+builder.Services.AddCors(options =>
+{
+  options.AddDefaultPolicy(policy =>
+  {
+    var allowedOrigins = builder.Configuration.GetValue<string>("AllowedOrigins");
+    //var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
+    policy.WithOrigins(allowedOrigins)
+          .AllowAnyHeader()
+          .AllowAnyMethod();
+  });
+
+  options.AddDefaultPolicy(policy =>
+  {
+    policy.AllowAnyOrigin() // Cho phép tất cả các domain
+          .AllowAnyHeader()
+          .AllowAnyMethod();
+  });
+});
+
 builder.Services.AddAuthentication(options =>
 {
   options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -63,6 +82,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors();
 
 app.UseAuthentication();
 

@@ -1,0 +1,96 @@
+﻿@page "/authen/login"
+@using ThiTracNghiemV3.Shared.DTOs
+@using ThiTracNghiemV3.Web.APIs
+@layout EmptyLayout
+@inject IAuthenApi AuthenApi
+
+
+<div class="container">
+  <div class="row vh-100">
+    <div class="col-sm-4 mx-auto my-auto border shadow-lg">
+
+      <div class="my-3">
+        <h3>Đăng Nhập Hệ Thống Thi Trắc Nghiệm</h3>
+      </div>
+
+      <hr />
+
+      <EditForm Model="_loginDto" OnValidSubmit="LoginAsync">
+        @* <DataAnnotationsValidator>
+
+        </DataAnnotationsValidator> *@
+
+        <DataAnnotationsValidator />
+
+        <div class="mb-3">
+          <label class="form-label">Tên tài khoản: </label>
+          <InputText @bind-Value="_loginDto.UserName" class="form-control" />
+          <ValidationMessage For="() => _loginDto.UserName" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Mật khẩu: </label>
+          <InputText type="password" @bind-Value="_loginDto.Password" class="form-control" />
+          <ValidationMessage For="() => _loginDto.Password" />
+        </div>
+
+        @if (_error != null)
+        {
+          <div class="mb-3 bg-danger text-white p-2">
+            <p>@_error</p>
+          </div>
+        }
+
+        <div class="mb-3">
+
+          @if (!_datCoHieu)
+          {
+            <button type="submit" class="btn btn-primary">Đăng Nhập</button>
+          }
+          else
+          {
+            <button type="button" disabled class="btn btn-primary">Đang Đăng Nhập ...</button>
+          }
+
+        </div>
+
+      </EditForm>
+    </div>
+  </div>
+</div>
+
+@code {
+  private LoginDto _loginDto = new();
+
+  //test
+  private bool _datCoHieu;
+
+  private string? _error;
+
+
+  private async Task LoginAsync()
+  {
+    _error = null;
+    _datCoHieu = true;
+
+    try
+    {
+      var authen = await AuthenApi.LoginAsync(_loginDto);
+
+      if (authen.HasError)
+      {
+        _error = authen.ErrorMessage;
+        return;
+      }
+
+    }
+    catch(Exception ex)
+    {
+      _error = ex.Message;
+    }
+    finally
+    {
+      _datCoHieu = false;
+    }
+  }
+}
