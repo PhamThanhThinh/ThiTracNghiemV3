@@ -3,6 +3,8 @@
 @using ThiTracNghiemV3.Web.APIs
 @layout EmptyLayout
 @inject IAuthenApi AuthenApi
+@* điều hướng *@
+@inject NavigationManager NavigationManager
 
 
 <div class="container">
@@ -82,6 +84,9 @@
         _error = authen.ErrorMessage;
         return;
       }
+
+      // nếu đăng nhập được thì load trang home
+      NavigationManager.NavigateTo("/");
 
     }
     catch(Exception ex)
