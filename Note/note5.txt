@@ -16,3 +16,10 @@ label
 textbox
 button
 
+Trong project ThiTracNghiem.Web
+cài:
+authorization
+webassembly authorization
+nginx (deploy đa nền tảng, vps linux, nginx)
+windows -> webserver là IIS
+
