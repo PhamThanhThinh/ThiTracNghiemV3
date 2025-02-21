@@ -7,7 +7,12 @@ using System.Threading.Tasks;
 
 namespace ThiTracNghiemV3.Shared.DTOs
 {
-  public record AuthenResponseDto(string Token, string? ErrorMessage = null)
+  //public record AuthenResponseDto(string Token, CheckNguoiDungDangNhap Check, string? ErrorMessage = null)
+  //{
+  //  [JsonIgnore]
+  //  public bool HasError => ErrorMessage != null;
+  //}
+  public record AuthenResponseDto(CheckNguoiDungDangNhap CheckUser, string? ErrorMessage = null)
   {
     [JsonIgnore]
     public bool HasError => ErrorMessage != null;

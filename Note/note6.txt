@@ -1,0 +1,3 @@
+Blazor web app:
+server (chạy phía server)
+webassembly (trình duyệt)

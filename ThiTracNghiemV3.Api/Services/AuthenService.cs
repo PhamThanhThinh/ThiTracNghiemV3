@@ -5,6 +5,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using ThiTracNghiemV3.Api.Data;
 using ThiTracNghiemV3.Api.Data.Entities;
+using ThiTracNghiemV3.Shared;
 using ThiTracNghiemV3.Shared.DTOs;
 
 namespace ThiTracNghiemV3.Api.Services
@@ -41,9 +42,9 @@ namespace ThiTracNghiemV3.Api.Services
         return new AuthenResponseDto(default, "Không có User này trong hệ thống");
       }
 
-      var ketQuaXacThuc = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, loginDto.Password);
+      var xacThucMatKhau = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, loginDto.Password);
 
-      if (ketQuaXacThuc == PasswordVerificationResult.Failed)
+      if (xacThucMatKhau == PasswordVerificationResult.Failed)
       {
         // mật khẩu sai
         return new AuthenResponseDto(default, "Mật khẩu sai");
@@ -51,8 +52,8 @@ namespace ThiTracNghiemV3.Api.Services
 
       // tạo khóa JWT Token
       var jwt = GenerateJwtToken(user);
-
-      return new AuthenResponseDto(jwt);
+      var checkNguoiDungDangNhap = new CheckNguoiDungDangNhap(user.Id, user.Name, user.Role, jwt);
+      return new AuthenResponseDto(checkNguoiDungDangNhap);
     }
 
     // function tạo khóa JWT Token

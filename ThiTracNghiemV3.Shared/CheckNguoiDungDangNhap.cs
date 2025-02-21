@@ -1,0 +1,23 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Security.Claims;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
+
+namespace ThiTracNghiemV3.Shared
+{
+  public record CheckNguoiDungDangNhap(int Id, string Name, string Role, string Token)
+  {
+    public string ToJson() => JsonSerializer.Serialize(this);
+
+    public Claim[] GetClaims() => [
+      new Claim(ClaimTypes.NameIdentifier, Id.ToString()),
+      new Claim(ClaimTypes.Name, Name),
+      new Claim(ClaimTypes.Role, Role),
+      new Claim(nameof(Token), Token)
+      ];
+  }
+}
