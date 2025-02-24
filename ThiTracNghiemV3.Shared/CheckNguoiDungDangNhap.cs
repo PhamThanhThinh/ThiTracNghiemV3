@@ -19,5 +19,11 @@ namespace ThiTracNghiemV3.Shared
       new Claim(ClaimTypes.Role, Role),
       new Claim(nameof(Token), Token)
       ];
+    //public Claim[] ToClaims() => [
+    //  new Claim(ClaimTypes.NameIdentifier, Id.ToString()),
+    //  new Claim(ClaimTypes.Name, Name),
+    //  new Claim(ClaimTypes.Role, Role),
+    //  new Claim(nameof(Token), Token)
+    //  ];
   }
 }
