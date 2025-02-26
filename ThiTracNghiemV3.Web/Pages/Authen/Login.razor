@@ -1,11 +1,14 @@
 ﻿@page "/authen/login"
 @using ThiTracNghiemV3.Shared.DTOs
 @using ThiTracNghiemV3.Web.APIs
+@using ThiTracNghiemV3.Web.Authen
+@using System.Security.Claims
 @layout EmptyLayout
 @inject IAuthenApi AuthenApi
 @* điều hướng *@
 @inject NavigationManager NavigationManager
-
+@inject DangKyTaiKhoanHeThongThiTracNghiem DangKyTaiKhoanHeThongThiTracNghiem
+@using Microsoft.AspNetCore.Components.Authorization
 
 <div class="container">
   <div class="row vh-100">
@@ -14,6 +17,29 @@
       <div class="my-3">
         <h3>Đăng Nhập Hệ Thống Thi Trắc Nghiệm</h3>
       </div>
+
+      <AuthorizeView>
+    @* trạng thái đang đăng nhập *@
+    <Authorizing>
+      <p>Đang đăng nhập đây ... Hãy chờ trong ...</p>
+    </Authorizing>
+    @* trạng thái đã đăng nhập *@
+    <Authorized>
+      <p>Đã đăng nhập</p>
+          <h3>Chào mừng, @context.User.Claims.FirstOrDefault(uc => uc.Type == ClaimTypes.Name)?.Value đã đăng nhập!</h3>
+      <p>Đây là nội dung chỉ dành cho người dùng đã xác thực.</p>
+    </Authorized>
+    @* <NotAuthorized>
+      <h3>Bạn chưa đăng nhập!</h3>
+      <p>Hãy đăng nhập để xem nội dung.</p>
+      <a href="/login">Đăng nhập</a>
+    </NotAuthorized> *@
+    @* ctrl K C để tạo comment trong code *@
+    @* trạng thái chưa đăng nhập *@
+    <NotAuthorized>
+    <p>Bạn chưa đăng nhập</p>
+    </NotAuthorized>
+</AuthorizeView>
 
       <hr />
 
@@ -85,8 +111,8 @@
         return;
       }
 
-      // var checkThongTinDangNhapCuaNguoiDung = authen.User;
-
+      var checkThongTinDangNhapCuaNguoiDung = authen.CheckUser;
+      await DangKyTaiKhoanHeThongThiTracNghiem.SetLoginAsync(checkThongTinDangNhapCuaNguoiDung);
       // nếu đăng nhập được thì load trang home
       NavigationManager.NavigateTo("/");
 

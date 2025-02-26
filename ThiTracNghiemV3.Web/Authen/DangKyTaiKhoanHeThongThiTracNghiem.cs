@@ -29,7 +29,8 @@ namespace ThiTracNghiemV3.Web.Authen
       var authenState = new AuthenticationState(user);
 
       _jSRuntime = jSRuntime;
-      _authenStateTask = Task.FromResult(authenState);
+      //_authenStateTask = Task.FromResult(authenState);
+      SetAuthenStateTask();
     }
 
     public override Task<AuthenticationState> GetAuthenticationStateAsync() =>
@@ -54,15 +55,18 @@ namespace ThiTracNghiemV3.Web.Authen
     {
       User = user;
 
-      await _jSRuntime.InvokeVoidAsync("localStorage.setItem", UserDataKey, user.ToJson());
+      //var identity = new ClaimsIdentity(user.GetClaims(), Authen);
+      //var userPrincipal = new ClaimsPrincipal(identity);
 
-      var identity = new ClaimsIdentity(user.GetClaims(), Authen);
-      var userPrincipal = new ClaimsPrincipal(identity);
+      //var authenState = new AuthenticationState(userPrincipal);
+      //_authenStateTask = Task.FromResult(authenState);
 
-      var authenState = new AuthenticationState(userPrincipal);
-      _authenStateTask = Task.FromResult(authenState);
+      SetAuthenStateTask();
 
       NotifyAuthenticationStateChanged(_authenStateTask);
+
+      await _jSRuntime.InvokeVoidAsync("localStorage.setItem", UserDataKey, user.ToJson());
+
     }
 
     public async Task SetLogoutAsync()
@@ -72,6 +76,10 @@ namespace ThiTracNghiemV3.Web.Authen
       //var identity = new ClaimsIdentity();
       //var user = new ClaimsPrincipal(identity);
       //var authenState = new AuthenticationState(user);
+
+      SetAuthenStateTask();
+
+      NotifyAuthenticationStateChanged(_authenStateTask);
 
       await _jSRuntime.InvokeVoidAsync("localStorage.removeItem", UserDataKey);
     }

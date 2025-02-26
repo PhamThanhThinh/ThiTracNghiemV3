@@ -1,7 +1,39 @@
 ﻿@page "/"
+@using System.Security.Claims
+@using ThiTracNghiemV3.Web.Authen
+@using Microsoft.AspNetCore.Components.Authorization
+
+@inject DangKyTaiKhoanHeThongThiTracNghiem DangKyTaiKhoanHeThongThiTracNghiem
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>Chào mừng, @DangKyTaiKhoanHeThongThiTracNghiem.User.Name</h1>
 
 Welcome to your new app.
+
+<AuthorizeView>
+  @* trạng thái đang đăng nhập *@
+  <Authorizing>
+    <p>Đang đăng nhập đây ... Hãy chờ trong ...</p>
+  </Authorizing>
+  @* trạng thái đã đăng nhập *@
+  <Authorized>
+    <p>Đã đăng nhập</p>
+    <h3>Chào mừng, @(context.User.Claims.FirstOrDefault(uc => uc.Type == "name")?.Value ?? "Người dùng") đã đăng nhập!</h3>
+    <p>Đây là nội dung chỉ dành cho người dùng đã xác thực.</p>
+  </Authorized>
+  @* <NotAuthorized>
+    <h3>Bạn chưa đăng nhập!</h3>
+    <p>Hãy đăng nhập để xem nội dung.</p>
+    <a href="/login">Đăng nhập</a>
+  </NotAuthorized> *@
+  @* ctrl K C để tạo comment trong code *@
+  @* trạng thái chưa đăng nhập *@
+  <NotAuthorized>
+    <p>Bạn chưa đăng nhập</p>
+  </NotAuthorized>
+</AuthorizeView>
+
+@code {
+  // private string userName;
+}
