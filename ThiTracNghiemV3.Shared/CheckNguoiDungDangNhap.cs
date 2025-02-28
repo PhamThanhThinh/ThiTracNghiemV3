@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Security.Claims;
 using System.Text;
@@ -25,5 +26,29 @@ namespace ThiTracNghiemV3.Shared
     //  new Claim(ClaimTypes.Role, Role),
     //  new Claim(nameof(Token), Token)
     //  ];
+
+    // ctrl K C
+    // ctrl K U
+    public static CheckNguoiDungDangNhap LoadFrom(string json) =>
+      !string.IsNullOrWhiteSpace(json)
+      ? JsonSerializer.Deserialize<CheckNguoiDungDangNhap>(json) : null;
+
+    //public static CheckNguoiDungDangNhap? LoadFrom(string json) =>
+    //  string.IsNullOrEmpty(json) ? null : TryDeserialize(json);
+
+    //private static CheckNguoiDungDangNhap? TryDeserialize(string json)
+    //{
+    //  try
+    //  {
+
+    //  }
+    //  catch
+    //  {
+    //    return null;
+    //  }
+    //}
+
+
+
   }
 }

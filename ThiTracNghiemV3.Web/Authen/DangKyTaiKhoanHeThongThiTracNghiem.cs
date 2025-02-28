@@ -3,6 +3,7 @@ using Microsoft.JSInterop;
 using System.Runtime.CompilerServices;
 using System.Security.Claims;
 using System.Security.Principal;
+using System.Text.Json;
 using ThiTracNghiemV3.Shared;
 
 namespace ThiTracNghiemV3.Web.Authen
@@ -82,6 +83,17 @@ namespace ThiTracNghiemV3.Web.Authen
       NotifyAuthenticationStateChanged(_authenStateTask);
 
       await _jSRuntime.InvokeVoidAsync("localStorage.removeItem", UserDataKey);
+    }
+
+    public async Task InitializeAsync()
+    {
+      var userData = await _jSRuntime.InvokeAsync<string?>("localStorage.getItem", UserDataKey);
+      if (string.IsNullOrWhiteSpace(userData))
+      {
+        return;
+      }
+
+      var user = JsonSerializer.Deserialize<CheckNguoiDungDangNhap>(userData);
     }
 
     //private void SetAuthSateTask()

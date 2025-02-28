@@ -12,11 +12,12 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
+builder.Services.AddAuthorizationCore();
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddSingleton<DangKyTaiKhoanHeThongThiTracNghiem>();
 builder.Services
   .AddSingleton<AuthenticationStateProvider, DangKyTaiKhoanHeThongThiTracNghiem>(sp => sp.GetRequiredService<DangKyTaiKhoanHeThongThiTracNghiem>());
-builder.Services.AddAuthorizationCore();
+
 
 ConfigureRefit(builder.Services);
 

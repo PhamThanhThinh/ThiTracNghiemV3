@@ -1,0 +1,3 @@
+Mặt định git có 2 nhánh được tạo (1 trong 2)
+main
+master
