@@ -40,11 +40,20 @@ namespace ThiTracNghiemV3.Api.Data
         Phone = "0866439504",
         Role = nameof(UserRole.Admin)
       };
+      var studentUser = new User
+      {
+        Id = 2,
+        Name = "Thinh Pham (Student)",
+        Email = "student@test.xyz",
+        Phone = "0866439504",
+        Role = nameof(UserRole.Student)
+      };
 
       adminUser.PasswordHash = _passwordHasher.HashPassword(adminUser, "123456");
+      studentUser.PasswordHash = _passwordHasher.HashPassword(adminUser, "123456");
 
       modelBuilder.Entity<User>()
-        .HasData(adminUser);
+        .HasData(adminUser, studentUser);
 
     }
 
