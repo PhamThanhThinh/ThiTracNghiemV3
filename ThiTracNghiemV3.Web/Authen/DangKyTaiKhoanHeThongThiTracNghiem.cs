@@ -8,6 +8,7 @@ using ThiTracNghiemV3.Shared;
 
 namespace ThiTracNghiemV3.Web.Authen
 {
+  // xác thực tài khoản người dùng
   //kiểm tra tài khoản đã được đăng ký trong hệ thống
   public class DangKyTaiKhoanHeThongThiTracNghiem : AuthenticationStateProvider
   {
@@ -85,15 +86,55 @@ namespace ThiTracNghiemV3.Web.Authen
       await _jSRuntime.InvokeVoidAsync("localStorage.removeItem", UserDataKey);
     }
 
+    public bool IsInitialized { get; private set; } = true;
     public async Task InitializeAsync()
     {
-      var userData = await _jSRuntime.InvokeAsync<string?>("localStorage.getItem", UserDataKey);
-      if (string.IsNullOrWhiteSpace(userData))
-      {
-        return;
-      }
+      //try
+      //{
+      //  var userData = await _jSRuntime.InvokeAsync<string?>("localStorage.getItem", UserDataKey);
+      //  if (string.IsNullOrWhiteSpace(userData))
+      //  {
+      //    return;
+      //  }
 
-      var user = JsonSerializer.Deserialize<CheckNguoiDungDangNhap>(userData);
+      //  var user = JsonSerializer.Deserialize<CheckNguoiDungDangNhap>(userData);
+      //}
+      //catch (Exception ex)
+      //{
+
+      //}
+      //finally
+      //{
+
+      //}
+      try
+      {
+        var userData = await _jSRuntime.InvokeAsync<string?>("localStorage.getItem", UserDataKey);
+        if (string.IsNullOrWhiteSpace(userData))
+        {
+          return;
+        }
+
+        var user = CheckNguoiDungDangNhap.LoadFrom(userData);
+        //if (user != null)
+        //{
+        //  User = user;
+        //  SetAuthenStateTask();
+        //}
+        if (user == null || user.Id == 0)
+        {
+          return;
+        }
+        await SetLoginAsync(user);
+
+      }
+      catch (Exception ex)
+      {
+      }
+      finally
+      {
+        IsInitialized = false;
+      }
     }
 
     //private void SetAuthSateTask()

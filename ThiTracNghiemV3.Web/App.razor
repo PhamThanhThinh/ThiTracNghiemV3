@@ -1,4 +1,5 @@
-﻿<Microsoft.AspNetCore.Components.Authorization.CascadingAuthenticationState>
+﻿
+@* <Microsoft.AspNetCore.Components.Authorization.CascadingAuthenticationState>
   <Router AppAssembly="@typeof(App).Assembly">
     <Found Context="routeData">
       <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
@@ -7,8 +8,32 @@
     <NotFound>
       <PageTitle>Not found</PageTitle>
       <LayoutView Layout="@typeof(MainLayout)">
-        <p role="alert">Sorry, there's nothing at this address.</p>
+        <p role="alert">Không tìm thấy trang</p>
       </LayoutView>
     </NotFound>
   </Router>
-</Microsoft.AspNetCore.Components.Authorization.CascadingAuthenticationState>
+</Microsoft.AspNetCore.Components.Authorization.CascadingAuthenticationState> *@
+
+@using ThiTracNghiemV3.Web.Authen
+@using Microsoft.AspNetCore.Components.Authorization
+
+<Router AppAssembly="@typeof(App).Assembly">
+  <Found Context="routeData">
+    <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+    <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+  </Found>
+  <NotFound>
+    <PageTitle>Not found</PageTitle>
+    <LayoutView Layout="@typeof(MainLayout)">
+      <p role="alert">Không tìm thấy trang</p>
+    </LayoutView>
+  </NotFound>
+</Router>
+
+@inject DangKyTaiKhoanHeThongThiTracNghiem DangKyTaiKhoanHeThongThiTracNghiem
+@code {
+  protected override async Task OnInitializedAsync()
+  {
+    await DangKyTaiKhoanHeThongThiTracNghiem.InitializeAsync();
+  }
+}
