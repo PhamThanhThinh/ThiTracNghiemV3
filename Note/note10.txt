@@ -1,0 +1,4 @@
+Ctrl + M + O
+thu gọn code (như là các phương thức) để dễ quản lý code
+
+SeedData.cs
