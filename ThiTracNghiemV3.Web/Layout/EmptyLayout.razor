@@ -1,3 +1,26 @@
-﻿@inherits LayoutComponentBase
+﻿@using ThiTracNghiemV3.Web.Authen
+@inherits LayoutComponentBase
+@inject DangKyTaiKhoanHeThongThiTracNghiem DangKyTaiKhoanHeThongThiTracNghiem
 
 @Body
+
+@* @if (DangKyTaiKhoanHeThongThiTracNghiem.CheckNullThongTinUser)
+{
+  <p>Khởi tạo trạng thái đăng nhập ...  </p>
+}
+else
+{
+  <article class="content px-4">
+    @Body
+  </article>
+} *@
+
+@code {
+  protected override async Task OnInitializedAsync()
+  {
+    while (DangKyTaiKhoanHeThongThiTracNghiem.CheckNullThongTinUser)
+    {
+      await Task.Delay(300);
+    }
+  }
+}

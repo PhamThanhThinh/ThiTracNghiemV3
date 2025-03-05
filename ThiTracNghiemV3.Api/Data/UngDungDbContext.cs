@@ -31,7 +31,6 @@ namespace ThiTracNghiemV3.Api.Data
     {
       base.OnModelCreating(modelBuilder);
 
-
       var adminUser = new User
       {
         Id = 1,
