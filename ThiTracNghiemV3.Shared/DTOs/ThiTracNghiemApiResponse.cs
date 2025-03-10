@@ -9,7 +9,7 @@ namespace ThiTracNghiemV3.Shared.DTOs
   public record ThiTracNghiemApiResponse(bool IsSuccess, string? ErrorMessage)
   {
     public static ThiTracNghiemApiResponse Success() => new(true, null);
-    public static ThiTracNghiemApiResponse Fail(string errorMessage) => new(true, errorMessage);
+    public static ThiTracNghiemApiResponse Fail(string errorMessage) => new(false, errorMessage);
   }
 }
 

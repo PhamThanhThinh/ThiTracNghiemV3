@@ -7,6 +7,7 @@ using ThiTracNghiemV3.Api.Endpoints;
 using ThiTracNghiemV3.Api.Services;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
+using ThiTracNghiemV3.Shared.DTOs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -70,7 +71,8 @@ builder.Services.AddAuthentication(options =>
 });
 
 // khai báo service cho chức năng xác thực
-builder.Services.AddTransient<AuthenService>();
+builder.Services.AddTransient<AuthenService>()
+  .AddTransient<ThiTracNghiemApiResponse>();
 
 var app = builder.Build();
 
