@@ -1,0 +1,19 @@
+React cũng có cơ chế component như Blazor
+Tương tự thì cũng có ResfulAPI trong React và Blazor
+React dùng Javascript
+Blazor chủ yếu dùng C#, có dùng javascript nhưng ít, một số xử lý frontend vẫn phải dùng javascript: xử lý video, stream file, stream video, ...
+
+Vue
+
+trong project này thì 
+category chính là môn học
+server thì đã có đội Devops lo (mấy anh)
+
+Guiline
+Source code
+
+&& và đồng thời (thõa tất cả điều kiện)
+|| hoặc chỉ một trong 2 (thõa 1 trong hai điều kiện)
+
+CreateAndUpdate
+

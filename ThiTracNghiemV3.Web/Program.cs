@@ -18,7 +18,6 @@ builder.Services.AddSingleton<DangKyTaiKhoanHeThongThiTracNghiem>();
 builder.Services
   .AddSingleton<AuthenticationStateProvider, DangKyTaiKhoanHeThongThiTracNghiem>(sp => sp.GetRequiredService<DangKyTaiKhoanHeThongThiTracNghiem>());
 
-
 ConfigureRefit(builder.Services);
 
 //builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
