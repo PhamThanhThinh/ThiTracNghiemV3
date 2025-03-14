@@ -70,9 +70,16 @@ builder.Services.AddAuthentication(options =>
   };
 });
 
-// khai báo service cho chức năng xác thực
-builder.Services.AddTransient<AuthenService>()
-  .AddTransient<ThiTracNghiemApiResponse>();
+// khai báo service cho chức năng xác thực và category
+// cách viết 1:
+//builder.Services
+//    .AddTransient<AuthenService>()
+//    .AddTransient<ThiTracNghiemApiResponse>()
+//    .AddTransient<CategoryService>();
+// cách viết 2:
+builder.Services.AddTransient<AuthenService>();
+builder.Services.AddTransient<ThiTracNghiemApiResponse>();
+builder.Services.AddTransient<CategoryService>();
 
 var app = builder.Build();
 
@@ -89,7 +96,12 @@ app.UseCors();
 
 app.UseAuthentication();
 
+// cách viết thứ 1:
+//app.MappingAuthenEndpoints()
+//  .MappingCategoryEndpoints();
+// cách viết thứ 2:
 app.MappingAuthenEndpoints();
+app.MappingCategoryEndpoints();
 
 app.UseAuthorization();
 

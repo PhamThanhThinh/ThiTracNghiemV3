@@ -21,12 +21,17 @@
       <Authorized Context="authContext">
         <AuthorizeView Roles="@(nameof(UserRole.Admin))" Context="adminContext">
           <div class="nav-item px-3">
-            <NavLink class="nav-link" href="manage-quizes">
-              QL Thi Trắc Nghiệm
+            <NavLink class="nav-link" href="admin/categrories">
+              Quản Lý Môn Học
             </NavLink>
           </div>
           <div class="nav-item px-3">
-            <NavLink class="nav-link" href="add-quizes">
+            <NavLink class="nav-link" href="admin/manage-quizes">
+              Quản Lý Thi Trắc Nghiệm
+            </NavLink>
+          </div>
+          <div class="nav-item px-3">
+            <NavLink class="nav-link" href="admin/add-quizes">
               Thêm Bài Thi
             </NavLink>
           </div>
