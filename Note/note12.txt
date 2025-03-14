@@ -1,0 +1,36 @@
+asp.net webform -> windows server
+asp.net framework -> windows server
+asp.net core mvc -> windows server, linux server
+asp.net core blazor -> windows server, linux server
+MAUI -> win, mac, android, ios
+
+MAUI -> dùng api -> project điện thoại, ứng dụng máy tính dùng chung database với web
+
+máy tính mạnh để làm MAUI
+
+PHP -> viết mobile
+wordpress -> cần template
+
+
+design pattern
+
+linux
+li nớt
+
+
+claude
+cursor free 20 ngày
+
+vscode: vue, react, angular
+
+xử lý ngoại lệ
+
+core mvc: phải dùng javascript (vs2022 gợi ý code javascript quá cùi)
+
+frontend: blazor, react, vue, ...
+
+code sẵn tính năng
+framework tự có
+hoặc là viết thêm
+
+sandbox của azure => dùng thử vps/cloud để deploy
