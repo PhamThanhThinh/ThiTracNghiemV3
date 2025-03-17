@@ -1,0 +1,3 @@
+git add . (chọn tất cả)
+git commit -m "nội dung mô tả"
+git push (mặc định sẽ upload code lên nhánh master/main)

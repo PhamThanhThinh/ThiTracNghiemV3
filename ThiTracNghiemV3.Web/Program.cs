@@ -27,6 +27,35 @@ await builder.Build().RunAsync();
 static void ConfigureRefit(IServiceCollection services)
 {
   const string ApiUrl = "https://localhost:7091";
+
+  //services.AddRefitClient<IAuthenApi>()
+  //  .ConfigureHttpClient(httpClient => httpClient.BaseAddress = new Uri(ApiUrl));
+  //services.AddRefitClient<ICategoryApi>()
+  //  .ConfigureHttpClient(httpClient => httpClient.BaseAddress = new Uri(ApiUrl));
+
   services.AddRefitClient<IAuthenApi>()
-    .ConfigureHttpClient(httpClient => httpClient.BaseAddress = new Uri(ApiUrl));
+    .ConfigureHttpClient(SetHttpClient);
+  services.AddRefitClient<ICategoryApi>(GetRefitSettings)
+    .ConfigureHttpClient(SetHttpClient);
+
+  static void SetHttpClient(HttpClient httpClient) =>
+    httpClient.BaseAddress = new Uri(ApiUrl);
+  static RefitSettings GetRefitSettings(IServiceProvider serviceProvider)
+  {
+    var authStateProvider = serviceProvider
+      .GetRequiredService<DangKyTaiKhoanHeThongThiTracNghiem>();
+
+    return new RefitSettings
+    {
+      //AuthorizationHeaderValueGetter = (_, __) => Task.FromResult("TOKEN")
+      //AuthorizationHeaderValueGetter = (_, __) => Task.FromResult("KhoaBiMat")
+      //AuthorizationHeaderValueGetter = (_, __) => Task.FromResult("tB8nZ!xw2p@V4Qf#M6sLk9&yR3dPj*Gz;")
+      AuthorizationHeaderValueGetter = (_, __) => Task.FromResult(authStateProvider.User?.Token ?? "")
+      //AuthorizationHeaderValueGetter = async (_, __) =>
+      //{
+      //  var tokenService = serviceProvider.GetRequiredService<ITokenService>();
+      //  return await tokenService.GetAccessTokenAsync() ?? string.Empty;
+      //}
+    };
+  }
 }

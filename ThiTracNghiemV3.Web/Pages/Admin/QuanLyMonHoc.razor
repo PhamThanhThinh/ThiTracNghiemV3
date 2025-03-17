@@ -1,7 +1,81 @@
 ﻿@* @page "/quan-ly-mon-hoc" *@
 @page "/admin/categrories"
-<h3>Quản Lý Môn Học (thêm xóa sửa category)</h3>
+@using ThiTracNghiemV3.Shared.DTOs
+@using ThiTracNghiemV3.Web.APIs
+@inject ICategoryApi CategoryApi
+
+@* <h3>Quản Lý Môn Học (thêm xóa sửa category - Manage Categries )</h3> *@
+
+<div class="container">
+  <h1>Quản Lý Môn Học</h1>
+  <hr />
+  <div class="row">
+    <div class="col-sm-6">
+      Form dùng để chứa danh sách môn học
+    </div>
+    <div class="col-sm-6">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            @* số thứ tự *@
+            <th>#</th>
+            @* mã định danh *@
+            <th>Id</th>
+            <th>Tên Môn Học</th>
+            @* cột liệt kê chức năng: xóa sửa *@
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          @if (_categories.Length == 0)
+          {
+            <tr>
+              <td colspan="4">
+                <p class="text-danger h5">Không Dữ Liệu/Không Có Môn Học Nào</p>
+              </td>
+            </tr>
+          }
+          else
+          {
+            int number = 1;
+            @foreach (var item in _categories)
+            {
+              <tr>
+                <td>@(number++)</td>
+                <td>@item.CategoryId</td>
+                <td>@item.Name</td>
+                <td>
+                  <button 
+                  type="button" 
+                  class="btn btn-sm btn-primary"
+                  @onclick="() => OnEditCategory(item)">Sửa</button>
+                </td>
+              </tr>
+            }
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 
 @code {
+  // khai hàm dựng constructor
+  // nói thêm về hàm hủy: c# tự động chạy hàm hủy
+  // destructor
+
+  private CategoryDTO[] _categories = [];
+  private CategoryDTO _category = new();
+
+  // sử dụng cơ chế bất đồng bộ
+  protected override async Task OnInitializedAsync()
+  {
+    _categories = await CategoryApi.GetCategoriesAsync();
+  }
+
+  // private void OnEditCategory(Category category)
+  // {
+    
+  // }
 
 }
