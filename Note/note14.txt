@@ -1,0 +1,53 @@
+Làm quản lý môn học (category)
+
+ViewModel
+DTO
+làm class trung gian truyền dữ liệu
+
+API xử lý giọng nói
+Build máy dùng để training API xử lý giọng nói
+=> dùng card dùng cho lĩnh vực AI
+=> học cách traning
+Dùng dịch vụ miễn phí của google dùng để traning AI
+Google Colab (miễn phí và trả phí)
+
+Học Python vì nó mạnh về xử lý dữ liệu
+Google Colab dùng python để xữ lý dữ liệu
+c xử lý hình ảnh âm thanh
+hình ảnh so khớp từ dữ liệu người dùng training (anh Hoàng: Google Colab + python + data => so khớp khuôn mặt => xác định danh tính người đó)
+
+xử lý âm thanh: Google Colab + python + data (ghi âm giọng nói của một người) => Việt => có, Anh => có
+
+10.000.000 => máy tính cơ bản để train AI (AI giọng nói)
+
+https://hoccodeai.com/
+hoàng tôi đi code dạo ha
+
+tool tự phát triển => đòi tiền khách sạn
+tool sếp mua cho nhân viên dùng
+(sếp sẽ vay ngân hàng để làm dự án
+=> ...)
+
+- python: AI xử lý dữ liệu
+làm Data Analytics (python + sql)
+
+- c++ làm AI cho xe: Hàn Singapore
+
+
+tự học trên mạng
+mua khóa học
+thuê người hướng dẫn (dạy kèm)
+
+api trả phí
+api dịch từ âm thanh sang văn bản
+api để sử dụng các mô hình ngôn ngữ
+
+code html css trên .net framework => tự động load lại giao diện
+
+.net core mvc
+.net core blazor
+phải build lại project thì mới cập nhật giao diện
+
+hàng rau => row
+
+
