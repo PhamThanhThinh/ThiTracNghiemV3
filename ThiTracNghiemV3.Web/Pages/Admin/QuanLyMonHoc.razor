@@ -1,5 +1,5 @@
 ﻿@* @page "/quan-ly-mon-hoc" *@
-@page "/admin/categrories"
+@page "/admin/quanlymonhoc"
 @using ThiTracNghiemV3.Shared.DTOs
 @using ThiTracNghiemV3.Web.APIs
 @inject ICategoryApi CategoryApi
@@ -12,6 +12,24 @@
   <div class="row">
     <div class="col-sm-6">
       Form dùng để chứa danh sách môn học
+      Form dùng để sửa tên môn học
+      <EditForm Model="_category" OnValidSubmit="SaveCategoryAsync">
+        <DataAnnotationsValidator/>
+
+        <div class="">
+          <label>Tên Môn Học: </label>
+          <InputText 
+          @bind-Value="_category.Name"
+          class="form-control form-control-sm"
+          />
+          <ValidationMessage For="() => _category.Name" />
+        </div>
+        <div class="d-flex justify-content-between align-items-center">
+          <button type="button" class="btn btn-sm btn-danger">Thoát</button>
+          <button type="submit" class="btn btn-sm btn-primary">Lưu</button>
+        </div>
+
+      </EditForm>
     </div>
     <div class="col-sm-6">
       <table class="table table-striped table-hover">
@@ -73,9 +91,29 @@
     _categories = await CategoryApi.GetCategoriesAsync();
   }
 
-  // private void OnEditCategory(Category category)
-  // {
-    
-  // }
+  // sửa thông tin môn học
+  // hay còn gọi là đổi tên môn học
+  private void OnEditCategory(CategoryDTO category)
+  {
+    _category = category;
+  }
+
+  private async Task SaveCategoryAsync()
+  {
+    try
+    {
+      var response = await CategoryApi.SaveCategoryAsync(_category);
+      if (!response.IsSuccess)
+      {
+        // thông báo lỗi
+        return;
+      }
+
+    }
+    catch (Exception ex)
+    {
+      
+    }
+  }
 
 }

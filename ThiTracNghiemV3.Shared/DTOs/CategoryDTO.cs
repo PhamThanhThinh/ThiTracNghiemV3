@@ -11,7 +11,7 @@ namespace ThiTracNghiemV3.Shared.DTOs
   {
     public int CategoryId { get; set; }
 
-    [Required, MaxLength(50)]
+    [Required(ErrorMessage = "Bạn Phải Nhập Tên Môn Học"), MaxLength(50)]
     public string Name { get; set; }
   }
 }
