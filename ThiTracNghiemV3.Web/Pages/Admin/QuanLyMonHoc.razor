@@ -86,11 +86,23 @@
   private CategoryDTO _category = new();
 
   // sử dụng cơ chế bất đồng bộ
-  protected override async Task OnInitializedAsync()
+  // cách viết 1
+  // protected override async Task OnInitializedAsync()
+  // {
+  //   _categories = await CategoryApi.GetCategoriesAsync();
+  // }
+
+  protected override async Task OnInitializedAsync() => 
+    await LoadCategoriesAsync();
+
+  // private async Task LoadCategoriesAsync() =>
+  //   _categories = await CategoryApi.GetCategoriesAsync();
+
+  private async Task LoadCategoriesAsync()
   {
     _categories = await CategoryApi.GetCategoriesAsync();
   }
-
+  
   // sửa thông tin môn học
   // hay còn gọi là đổi tên môn học
   private void OnEditCategory(CategoryDTO category)
@@ -98,6 +110,8 @@
     _category = category;
   }
 
+  // lưu thông tin môn học
+  // category: danh mục sản phẩm (nếu trong một project về bán hàng)
   private async Task SaveCategoryAsync()
   {
     try
@@ -108,11 +122,13 @@
         // thông báo lỗi
         return;
       }
-
+      // load lại thông tin môn học
+      _category = new();
+      await LoadCategoriesAsync();
     }
     catch (Exception ex)
     {
-      
+      // thông báo lỗi
     }
   }
 
