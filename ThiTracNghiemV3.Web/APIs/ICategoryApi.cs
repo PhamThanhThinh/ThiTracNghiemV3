@@ -3,7 +3,7 @@ using ThiTracNghiemV3.Shared.DTOs;
 
 namespace ThiTracNghiemV3.Web.APIs
 {
-  //[Header("Authorization: JWT ")]
+  [Headers("Authorization: Bearer")]
   public interface ICategoryApi
   {
     // lưu dữ liệu vào database từ trình duyệt

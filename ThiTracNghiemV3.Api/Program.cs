@@ -49,6 +49,7 @@ builder.Services.AddCors(options =>
   //});
 });
 
+// đăng ký dịch vụ để sử dụng Authentication
 builder.Services.AddAuthentication(options =>
 {
   options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -69,6 +70,9 @@ builder.Services.AddAuthentication(options =>
     ValidateIssuerSigningKey = true,
   };
 });
+
+// đăng ký dịch vụ để sử dụng Authorization
+builder.Services.AddAuthorization();
 
 // khai báo service cho chức năng xác thực và category
 // cách viết 1:
@@ -94,7 +98,11 @@ app.UseHttpsRedirection();
 
 app.UseCors();
 
-app.UseAuthentication();
+// xác thực UseAuthentication
+// phân quyền UseAuthorization
+
+app.UseAuthentication()
+  .UseAuthorization();
 
 // cách viết thứ 1:
 app.MappingAuthenEndpoints()

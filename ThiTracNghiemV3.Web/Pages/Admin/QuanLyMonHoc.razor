@@ -102,7 +102,7 @@
   {
     _categories = await CategoryApi.GetCategoriesAsync();
   }
-  
+
   // sửa thông tin môn học
   // hay còn gọi là đổi tên môn học
   private void OnEditCategory(CategoryDTO category)
@@ -129,6 +129,7 @@
     catch (Exception ex)
     {
       // thông báo lỗi
+      Console.WriteLine($"Error: {ex.Message}");
     }
   }
 
